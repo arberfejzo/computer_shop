@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css' rel='stylesheet' />
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.js'></script>
+
+    <title>e3computers/shto</title>
+</head>
+
+<body>
+    <!-- navar -->
+    <%- include('../partials/navbar') %>
+    <!-- flash -->
+    <div class="container mt-3">
+        <%- include('../partials/flash') %>
+    </div>
+
+    <section>
+        <div class="card text-center" style="border: none; margin-bottom: unset; padding-bottom: unset;">
+            <div class="card-body" style="padding-bottom: unset;">
+                <h5 class="card-title">Shto kompjuter</h5>
+                <p class="card-text">Ploteso fushat per te shtuar nje kompjuter ne databaze</p>
+            </div>
+        </div>
+        <hr>
+
+        <div class="container mt-3 px-5 mb-5" style="max-width: 500px;">
+            <form action="/computers/<%=computer._id%>?_method=PUT"
+                method="POST">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="marka">Marka</span>
+                    <input type="text" id="marka" name="computer[marka]" class="form-control" placeholder="marka"
+                        aria-label="marka" aria-describedby="basic-addon1" value="<%= computer.marka %> ">
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="modeli">Modeli</span>
+                    <input type="text" id="modeli" name="computer[modeli]" class="form-control" placeholder="modeli"
+                        aria-label="modeli" aria-describedby="basic-addon1" value="<%= computer.modeli %> ">
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="versioni">Versioni</span>
+                    <select class="form-select" name="computer[versioni]" id="versioni" aria-label="Versioni">
+                        <!-- <option selected>Zgjidh</option> -->
+                        <option value="Desktop" <%=computer.versioni==="desktop" ? 'selected' : '' %>>Desktop</option>
+                        <option value="Laptop" <%=computer.versioni==="laptop" ? 'selected' : '' %>>Laptop</option>
+                        <option value="All-in-One" <%=computer.versioni==="all-in-one" ? 'selected' : '' %>>All-in-One
+                        </option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="cpu">CPU</span>
+                    <input type="text" name="computer[cpu]" id="cpu" class="form-control" placeholder="CPU"
+                        aria-label="CPU" aria-describedby="basic-addon1" value="<%= computer.cpu %> ">
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="grafika">Grafika</span>
+                    <input type="text" id="grafika" name="computer[grafika]" class="form-control"
+                        placeholder="karta grafike" aria-label="karta grafike" aria-describedby="basic-addon1"
+                        value="<%= computer.grafika %> ">
+                </div>
+
+                <hr>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="memorjaRam">RAM</span>
+                    <input type="number" id="memorjaRam" name="computer[memorjaRam]" class="form-control"
+                        placeholder="memorja RAM" aria-label="RAM" aria-describedby="basic-addon1"
+                        value="<%= computer.memorjaRam %>">
+                </div>
+
+                <div class="input-group mb-3">
+                    <select name="computer[tipiRam]" id="tipiRam" class="form-select" aria-label="tipi RAM">
+                        <!-- <option selected>Tipi RAM</option> -->
+                        <option value="DDR3" <%=computer.tipiRam==="DDR3" ? 'selected' : '' %>>DDR3</option>
+                        <option value="DDR4" <%=computer.tipiRam==="DDR4" ? 'selected' : '' %>>DDR4</option>
+                        <option value="DDR5" <%=computer.tipiRam==="DDR5" ? 'selected' : '' %>>DDR5</option>
+                    </select>
+                </div>
+
+                <hr>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="memorjaDisk">Memorja</span>
+                    <input type="number" id="memorjaDisk" name="computer[memorjaDisk]" class="form-control"
+                        placeholder="memorja disk" aria-label="memorja" aria-describedby="basic-addon1"
+                        value="<%= computer.memorjaDisk %>">
+                </div>
+
+                <div class="input-group mb-3">
+                    <select name="computer[tipiDisk]" id="tipiDisk" class="form-select" aria-label="tipi disk">
+                        <!-- <option selected>Tipi disk</option> -->
+                        <option value="HDD" <%=computer.tipiDisk==="HDD" ? 'selected' : '' %>>HDD</option>
+                        <option value="SSD" <%=computer.tipiDisk==="SSD" ? 'selected' : '' %>>SSD</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="memorjaDisk2">Memorja dytesore</span>
+                    <input type="number" id="memorjaDisk2" name="computer[memorjaDisk2]" class="form-control"
+                        placeholder="memorja sekondare" aria-label="memorja sekondare" aria-describedby="basic-addon1"
+                        value="<%= computer.memorjaDisk2 %>">
+                </div>
+
+                <div class="input-group mb-3">
+                    <select name="computer[tipiDisk2]" id="tipiDisk2" class="form-select" aria-label="tipi disk2">
+                        <!-- <option selected>Tipi disk</option> -->
+                        <option value="HDD" <%=computer.tipiDisk2==="HDD" ? 'selected' : '' %>>HDD</option>
+                        <option value="SSD" <%=computer.tipiDisk2==="SSD" ? 'selected' : '' %>>SSD</option>
+                    </select>
+                </div>
+
+                <hr>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Cmimi</span>
+                    <input type="number" name="computer[cmimi]" id="cmimi" class="form-control"
+                        aria-label="cmimi ne euro" value="<%= computer.cmimi %>">
+                    <span class="input-group-text">€</span>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" name="computer[workstation]" type="checkbox" value="true"
+                            id="flexCheckDefault" <%=computer.workstation==="true" ? 'checked' : '' %>>
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Workstation
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="computer[oferte]" value="true"
+                            id="flexCheckChecked" <%=computer.oferte==="true" ? 'checked' : '' %>>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Oferte
+                        </label>
+                    </div>
+                </div>
+
+                <!-- <div class="mb-3">
+                    <label for="image" class="form-label">Zgjidh foton</label>
+                    <input class="form-control" type="file" name="image" id="image" value="<%= computer.image %>">
+                </div> -->
+
+                <div class="input-group">
+                    <span class="input-group-text">Pershkrimi</span>
+                    <textarea id="teks" name="computer[tekst]" class="form-control" aria-label="With textarea"><%= computer.tekst %> </textarea>
+                </div>
+
+                <div class="row align-items-center mt-5">
+                    <input type="submit" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+
+
+    <!-- footer -->
+    <section>
+        <!-- Footer -->
+        <footer class="text-center text-lg-start bg-light text-muted">
+            <!-- Section: Social media -->
+            <section class="d-flex justify-content-center p-4 border-bottom">
+                <!-- Left -->
+                <!-- <div class="me-5 d-none d-lg-block">
+                    <span>Get connected with us on social networks:</span>
+                </div> -->
+                <!-- Left -->
+
+                <!-- Right -->
+                <a href="" class="me-4 text-reset">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fa fa-instagram"></i>
+                </a>
+                <!-- Right -->
+            </section>
+            <!-- Section: Social media -->
+
+            <!-- Section: Links  -->
+            <section class="">
+                <div class="container text-center text-md-start mt-5">
+                    <!-- Grid row -->
+                    <div class="row mt-3">
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mb-4">
+                            <!-- Content -->
+
+                            <div id='map' class="mx-auto" style='width: 350px; height: 200px;'></div>
+                            <script>
+                                mapboxgl.accessToken = 'pk.eyJ1IjoicGFuZGFiZWFycG9vIiwiYSI6ImNrcGZxeGdseTBlY28yd24wN3BlbmR4cm8ifQ.ACdwaA4A39zrwAD6Ew2_Uw';
+                                var map = new mapboxgl.Map({
+                                    container: 'map', // container ID
+                                    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+                                    center: [19.824382, 41.326836], // starting position [lng, lat]
+                                    zoom: 15 // starting zoom
+                                });
+                                var marker = new mapboxgl.Marker()
+                                    .setLngLat([19.824501, 41.326885])
+                                    .addTo(map);
+                            </script>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                Kategorite
+                            </h6>
+                            <p>
+                                <a href="#!" class="text-reset">Kompjutera</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Kancelari</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Sherbime</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                Kontakt
+                            </h6>
+                            <p><i class="fa fa-home me-3"></i> Rr. George W. Bush, 1001, Tirane</p>
+                            <p>
+                                <i class="fa fa-envelope me-3"></i>
+                                e3computer@yahoo.com
+                            </p>
+                            <p><i class="fa fa-phone me-3"></i> + 355 684 013 010</p>
+                            <p><i class="fa fa-phone me-3"></i> + 355 693 173 731</p>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                </div>
+            </section>
+            <!-- Section: Links  -->
+
+            <!-- Copyright -->
+            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                © 2021 Copyright:
+                <a class="text-reset fw-bold" href="https://mdbootstrap.com/">e3computers.store</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://use.fontawesome.com/99e9613347.js"></script>
+
+</body>
+
+</html>
